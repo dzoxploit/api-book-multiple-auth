@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\BorrowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +22,7 @@ Route::post('admin/login',[LoginController::class, 'adminLogin'])->name('adminLo
 Route::group( ['prefix' => 'admin','middleware' => ['auth:admin-api','scopes:admin'] ],function(){
     // authenticated staff routes here 
     Route::get('dashboard',[LoginController::class, 'adminDashboard']);
-
-    Route::get('news', [NewsController::class, 'indexAdmin']);
-    Route::get('news/{newsId}', [NewsController::class, 'detailNews']);
-    Route::post('news/create', [NewsController::class, 'createAdmin']);
-    Route::post('news/update/{id}', [NewsController::class, 'update']);
-    Route::delete('news/delete/{id}', [NewsController::class, 'delete']);
-    Route::get('news/images/{filename}', [NewsController::class, 'show']);
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('books', BookController::class);
+    Route::apiResource('borrows', BorrowController::class);
 });

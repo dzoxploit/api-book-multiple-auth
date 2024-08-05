@@ -22,9 +22,6 @@ Route::post('user/login',[LoginController::class, 'userLogin'])->name('userLogin
 Route::group( ['prefix' => 'user','middleware' => ['auth:user-api','scopes:user'] ],function(){
    // authenticated staff routes here 
     Route::get('dashboard',[LoginController::class, 'userDashboard']);
-    Route::post('news/{newsId}/comments', [CommentController::class, 'store']);
 });
 
 // Public routes that don't require authentication
-Route::get('news', [NewsController::class, 'indexUser']);
-Route::get('news/{newsId}', [NewsController::class, 'detailNews']);
