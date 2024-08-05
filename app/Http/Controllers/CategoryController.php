@@ -35,4 +35,13 @@ class CategoryController extends Controller
         Category::destroy($id);
         return response()->noContent();
     }
+
+    public function show_books($id)
+    {
+        // Fetch the category by ID and load the related books
+        $category = Category::with('books')->findOrFail($id);
+        
+        // Return the books related to the category
+        return response()->json($category->books);
+    }
 }
